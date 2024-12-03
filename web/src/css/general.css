@@ -51,6 +51,13 @@ h1 {
     border-radius: 20%;
     cursor: pointer;
 }
+.modifyImg {
+    width: 20px;
+    margin: 0 5px 0 5px;
+    border-radius: 20%;
+    cursor: none;
+    opacity: 0;
+}
 .add-todos > .todo {
     border: none;
     width: 95%;

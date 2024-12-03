@@ -15,8 +15,11 @@ export default class App extends React.Component {
         this.inputRefs = {};
     }
     handleModify = (id) => {
-        if (this.inputRefs[id]) {
-            this.inputRefs[id].focus();
+        const thisInput = this.state.todoData.find(data => data.id === id);
+        if (!(thisInput.completed)) {
+            if(this.inputRefs[id]) {
+                this.inputRefs[id].focus();
+            }
         }
     }
     handleDelete = (id) => {
@@ -102,7 +105,7 @@ export default class App extends React.Component {
                             onChange={(e) => this.handleOnChangeInput(e, data.id)}
                             onKeyUp={(e) => this.handleOnSubmit(e, data.id)}
                         />
-                        <img src="/assets/modify.svg" alt="modify"
+                        <img className={data.completed === true ? "modifyImg" : ''} src="/assets/modify.svg" alt="modify"
                              onClick={() => this.handleModify(data.id)}
                         />
                         <img src="/assets/delete.svg" alt="delete"
