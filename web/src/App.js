@@ -15,6 +15,16 @@ export default class App extends React.Component {
             completed: false,
         }
     ];
+    handleModify = (id) => {
+        console.log(id);
+    }
+    handleDelete = (id) => {
+        let index = this.todoData.filter((data) => data.id !== id);
+        console.log(id);
+    }
+    handleOnChangeChecked = (e) => {
+        return e !== true;
+    }
     render() {
         return (
             <>
@@ -30,14 +40,16 @@ export default class App extends React.Component {
                 </div>
                 {this.todoData.map((data)=> (
                     <div className="add-todos" key={data.id}>
-                        <input type="checkbox" checked={data.completed}/>
+                        <input type="checkbox" checked={data.completed} onChange={(e) => this.handleOnChangeChecked(e)}/>
                         <input className="todo" type="text" defaultChecked={false} value={data.title}/>
-                        <img src="/assets/modify.svg" alt="modify"/>
-                        <img src="/assets/delete.svg" alt="delete"/>
+                        <img src="/assets/modify.svg" alt="modify" onClick={() => this.handleModify(data.id)}/>
+                        <img src="/assets/delete.svg" alt="delete" onClick={() => this.handleDelete(data.id)}/>
                     </div>
                 ))}
 
             </>
         )
     }
+
+
 }
