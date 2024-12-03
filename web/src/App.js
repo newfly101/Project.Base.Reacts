@@ -6,6 +6,7 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            count: 2,
             todoData: [
                 { id: 1, title: 'Todo 1', completed: true },
                 { id: 2, title: 'Todo 2', completed: false }
@@ -50,14 +51,31 @@ export default class App extends React.Component {
                 this.inputRefs[id].blur();
             }
         }
-
+    }
+    handleAddNewTODO = () => {
+        this.setState((prevState) => {
+            const newTodoData = {
+                id: prevState.count + 1,
+                title: `Todo ${prevState.count + 1}`,
+                completed: false,
+            }
+            return {
+                count: prevState.count + 1,
+                todoData: [...prevState.todoData, newTodoData],
+            }
+        }, () => {
+            const newId = this.state.count;
+            if (this.inputRefs[newId]) {
+                this.inputRefs[newId].focus();
+            }
+        });
     }
     render() {
         return (
             <>
                 <div className="todo-header">
                     <h1>Todos 앱</h1>
-                    <span className="new-todo">새로운 TODO 추가하기</span>
+                    <span className="new-todo" onClick={() => this.handleAddNewTODO()}>새로운 TODO 추가하기</span>
                 </div>
                 <div className="add-todos">
                     <input type="checkbox"/>
