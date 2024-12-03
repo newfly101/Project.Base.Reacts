@@ -1,4 +1,5 @@
 import React from "react";
+import './css/general.css';
 
 export default class App extends React.Component{
   render() {
