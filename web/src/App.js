@@ -53,10 +53,16 @@ export default class App extends React.Component {
         }
     }
     handleAddNewTODO = () => {
+        const emptyTodo = this.state.todoData.find((todo) => todo.title.trim().length === 0);
+        if (emptyTodo) {
+            alert("입력하지 않은 할일이 있습니다.!");
+            return;
+        }
+
         this.setState((prevState) => {
             const newTodoData = {
                 id: prevState.count + 1,
-                title: `Todo ${prevState.count + 1}`,
+                title: "",
                 completed: false,
             }
             return {
