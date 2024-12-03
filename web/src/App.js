@@ -95,17 +95,26 @@ export default class App extends React.Component {
                         <input type="checkbox"
                                checked={data.completed}
                                onChange={(e) => this.handleOnChangeChecked(e, data.id)}/>
-                        <input
-                            className={data.completed !== true ? "todo" : "todo todo-complete"}
-                            type="text"
-                            name="value"
-                            value={data.title}
-                            placeholder="할 일 입력하기"
-                            ref={(ref) => this.inputRefs[data.id] = ref}
-                            onChange={(e) => this.handleOnChangeInput(e, data.id)}
-                            onKeyUp={(e) => this.handleOnSubmit(e, data.id)}
-                        />
-                        <img className={data.completed === true ? "modifyImg" : ''} src="/assets/modify.svg" alt="modify"
+                        {data.completed ?
+                            <label
+                                className="todo todo-complete">
+                                {data.title}
+                            </label>
+                            :
+                            <input
+                                className={data.completed !== true ? "todo" : "todo todo-complete"}
+                                type="text"
+                                name="value"
+                                value={data.title}
+                                placeholder="할 일 입력하기"
+                                ref={(ref) => this.inputRefs[data.id] = ref}
+                                onChange={(e) => this.handleOnChangeInput(e, data.id)}
+                                onKeyUp={(e) => this.handleOnSubmit(e, data.id)}
+                            />
+                        }
+
+                        <img className={data.completed === true ? "modifyImg" : ''} src="/assets/modify.svg"
+                             alt="modify"
                              onClick={() => this.handleModify(data.id)}
                         />
                         <img src="/assets/delete.svg" alt="delete"
