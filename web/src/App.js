@@ -1,21 +1,43 @@
 import React from "react";
 import './css/general.css';
 
-export default class App extends React.Component{
-  render() {
-    return (
-      <>
-        <div className="todo-header">
-          <h1>Todos 앱</h1>
-          <span className="new-todo">새로운 TODO 추가하기</span>
-        </div>
-        <div className="add-todos">
-          <input type="checkbox"/>
-          <input className="todo" type="text"/>
-          <img src="/assets/modify.svg" alt="modify"/>
-          <img src="/assets/delete.svg" alt="delete"/>
-        </div>
-      </>
-    )
-  }
+
+export default class App extends React.Component {
+    todoData = [
+        {
+            id: 1,
+            title: 'Todo 1',
+            completed: true,
+        },
+        {
+            id: 2,
+            title: 'Todo 2',
+            completed: false,
+        }
+    ];
+    render() {
+        return (
+            <>
+                <div className="todo-header">
+                    <h1>Todos 앱</h1>
+                    <span className="new-todo">새로운 TODO 추가하기</span>
+                </div>
+                <div className="add-todos">
+                    <input type="checkbox"/>
+                    <input className="todo" type="text" defaultChecked={false}/>
+                    <img src="/assets/modify.svg" alt="modify"/>
+                    <img src="/assets/delete.svg" alt="delete"/>
+                </div>
+                {this.todoData.map((data)=> (
+                    <div className="add-todos" key={data.id}>
+                        <input type="checkbox" checked={data.completed}/>
+                        <input className="todo" type="text" defaultChecked={false} value={data.title}/>
+                        <img src="/assets/modify.svg" alt="modify"/>
+                        <img src="/assets/delete.svg" alt="delete"/>
+                    </div>
+                ))}
+
+            </>
+        )
+    }
 }
