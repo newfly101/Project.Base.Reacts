@@ -1,3 +1,9 @@
+# 무시하지 않을 항목들
+!web/src/
+!web/public/
+!web/package.json
+!web/package-lock.json
+
 # intellij file
 /.idea
 .log
@@ -14,10 +20,7 @@
 # misc
 /web/node_modules
 /web/.env
-/web/.env.local
-/web/.env.development.local
-/web/.env.test.local
-/web/.env.production.local
+/web/.env.*
 # dependencies
 /web/.pnp.*
 /web/.pnp.js
