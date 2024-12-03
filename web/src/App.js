@@ -24,7 +24,11 @@ export default class App extends React.Component {
         this.setState({todoData: index});
     }
     handleOnChangeChecked = (e, id) => {
-        // console.log(e.target.checked);
+        const emptyTodo = this.state.todoData.find((data) => data.id === id);
+        if (emptyTodo.title.trim().length === 0) {
+            alert("항목을 입력하지 않으면 완료 할 수 없습니다.!");
+            return;
+        }
         const newTodo = this.state.todoData.map((todo) => {
             if (todo.id === id) {
                 return {...todo, completed: e.target.checked};
