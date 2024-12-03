@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component{
+  render() {
+    return (
+      <>
+        <div className="todo-header">
+          <h1>Todos 앱</h1>
+          <span className="new-todo">새로운 TODO 추가하기</span>
+        </div>
+        <div className="add-todos">
+          <input type="checkbox"/>
+          <input className="todo" type="text"/>
+          <img src="/assets/modify.svg" alt="modify"/>
+          <img src="/assets/delete.svg" alt="delete"/>
+        </div>
+      </>
+    )
+  }
 }
-
-export default App;
