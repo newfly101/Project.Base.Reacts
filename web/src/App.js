@@ -24,7 +24,7 @@ export default class App extends React.Component {
         this.setState({todoData: index});
     }
     handleOnChangeChecked = (e, id) => {
-        console.log(e.target.checked);
+        // console.log(e.target.checked);
         const newTodo = this.state.todoData.map((todo) => {
             if (todo.id === id) {
                 return {...todo, completed: e.target.checked};
@@ -35,7 +35,7 @@ export default class App extends React.Component {
         this.setState({ todoData: newTodo });
     }
     handleOnChangeInput = (e, id) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         const newTodo = this.state.todoData.map((todo) => {
             if (todo.id === id) {
                 return {...todo, title: e.target.value};
@@ -77,19 +77,13 @@ export default class App extends React.Component {
                     <h1>Todos 앱</h1>
                     <span className="new-todo" onClick={() => this.handleAddNewTODO()}>새로운 TODO 추가하기</span>
                 </div>
-                <div className="add-todos">
-                    <input type="checkbox"/>
-                    <input className="todo" type="text" defaultChecked={false}/>
-                    <img src="/assets/modify.svg" alt="modify"/>
-                    <img src="/assets/delete.svg" alt="delete"/>
-                </div>
                 {this.state.todoData.map((data)=> (
                     <div className="add-todos" key={data.id}>
                         <input type="checkbox"
                                checked={data.completed}
                                onChange={(e) => this.handleOnChangeChecked(e, data.id)}/>
                         <input
-                            className={data.completed !== true ? "todo" : "todo-complete"}
+                            className={data.completed !== true ? "todo" : "todo todo-complete"}
                             type="text"
                             name="value"
                             value={data.title}
