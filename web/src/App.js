@@ -89,7 +89,7 @@ export default class App extends React.Component {
                                checked={data.completed}
                                onChange={(e) => this.handleOnChangeChecked(e, data.id)}/>
                         <input
-                            className="todo"
+                            className={data.completed !== true ? "todo" : "todo-complete"}
                             type="text"
                             name="value"
                             value={data.title}
