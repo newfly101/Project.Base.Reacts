@@ -1,5 +1,6 @@
 import './css/general.css';
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
+import Lists from "./views/Lists.js";
 
 export default function App() {
     const [data, setData] = useState(
@@ -98,39 +99,17 @@ export default function App() {
                       onClick={() => handleAddNewTodo()}>
                     새로운 TODO 추가하기</span>
             </div>
-            {data.todoData.map((item) => {
-                return (
-                    <div className="add-todos" key={item.id}>
-                        <input type="checkbox"
-                               checked={item.completed}
-                               onChange={(e) => handleOnChangeChecked(e, item.id)}
-                        />
-                        {item.completed ?
-                            <label className={item.completed ? "todo todo-complete" : "todo"}>
-                                {item.title}
-                            </label>
-                            :
-                            <input
-                                className={item.completed ? "todo todo-complete" : "todo"}
-                                type="text"
-                                value={item.title}
-                                onChange={(e) => handleOnChangeTitle(e, item.id)}
-                                onKeyUp={(e) => handleSubmit(e, item.id)}
-                                ref={(ref) => inputRefs[item.id] = ref}
-                            />
-                        }
-                        <img className={item.completed ? "modifyImg": ""}
-                             src="/assets/modify.svg"
-                             alt="modify"
-                             onClick={() => handleModifyTodo(item.id)}
-                        />
-                        <img src="/assets/delete.svg"
-                             alt="delete"
-                             onClick={() => handleDeleteTodo(item.id)}
-                        />
-                    </div>
-                )
-            })}
+            {data.todoData.map((item) => (
+            <Lists item={item} key={item.id} setTodoData={setData}
+                   onChangeInput={handleOnChangeTitle}
+                   onChangeChecked={handleOnChangeChecked}
+                   handleModify={handleModifyTodo}
+                   handleDelete={handleDeleteTodo}
+                   onKeyupInput={handleSubmit}
+                   inputRefs={inputRefs}
+            />
+            ))}
+
         </div>
     );
 }
