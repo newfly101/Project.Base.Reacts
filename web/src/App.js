@@ -4,13 +4,16 @@ import Lists from "./views/Lists.js";
 import {DragDropContext, Draggable, Droppable} from "@hello-pangea/dnd";
 
 export default function App() {
+    const initialData = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")): "";
     const [data, setData] = useState(
         {
-            count: 2,
-            todoData: [
-                {id: 1, title: 'Todo 1', completed: true},
-                {id: 2, title: 'Todo 2', completed: false}
-            ],
+            count: initialData.length > 0 ? initialData.length : 2,
+            todoData: initialData.length > 0
+                ? initialData
+                : [
+                    {id: 1, title: 'Todo 1', completed: true},
+                    {id: 2, title: 'Todo 2', completed: false}
+                ],
         }
     );
     const inputRefs = useRef();
@@ -28,6 +31,10 @@ export default function App() {
             inputRefs[newId].focus();
         }
     }, [data.count])
+
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(data.todoData));
+    }, [data]);
 
     const handleOnChangeTitle = (e, id) => {
         setData((prevState) => ({

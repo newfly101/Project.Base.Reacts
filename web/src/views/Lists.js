@@ -1,8 +1,5 @@
 import React from "react";
 export default function Lists(props) {
-    // props를 명시적으로 변수에 할당 하는 경우
-    const {item, setTodoData, onChangeInput, onChangeChecked, handleModify, handleDelete, onKeyupInput, inputRefs} = props;
-
     return (
         <div className="add-todos" key={props.item.id}>
             <input type="checkbox"
