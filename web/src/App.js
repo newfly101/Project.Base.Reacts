@@ -94,7 +94,7 @@ export default function App() {
                                onChange={(e) => handleOnChangeChecked(e, item.id)}
                         />
                         <input
-                            className="todo"
+                            className={item.completed ? "todo todo-complete" : "todo"}
                             type="text"
                             value={item.title}
                             onChange={(e) => handleOnChangeTitle(e, item.id)}

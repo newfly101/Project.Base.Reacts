@@ -55,6 +55,14 @@ h1 {
     font-size: 15px;
     background-color: #b4dbe5;
 }
+.add-todos > .todo-complete {
+    border: none;
+    width: 95%;
+    margin-left: 10px;
+    font-size: 15px;
+    background-color: #b4dbe5;
+    text-decoration: line-through;
+}
 .add-todos > .todo:focus {
     outline: none;
     border-bottom: 2px solid white;
