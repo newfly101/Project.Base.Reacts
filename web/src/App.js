@@ -37,6 +37,11 @@ export default function App() {
             )
         }));
     }
+    const handleModifyTodo = (id) => {
+        if (inputRefs[id]) {
+            inputRefs[id].focus();
+        }
+    }
     function handleDeleteTodo(id) {
         setData((prevState) => ({
             ...prevState,
@@ -56,8 +61,6 @@ export default function App() {
                 todoData: [...prevState.todoData, newTodoData],
             }
         });
-        // class형 component에서는 callback()이 바로 호출 되는 반면
-        // function형에서는 callback()처리를 하고 싶으면 useEffect() 사용해야 함
     }
 
     return (
@@ -69,7 +72,6 @@ export default function App() {
                     새로운 TODO 추가하기</span>
             </div>
             {data.todoData.map((item) => {
-                // console.log(item);
                 return (
                     <div className="add-todos" key={item.id}>
                         <input type="checkbox"/>
@@ -80,7 +82,10 @@ export default function App() {
                             onChange={(e) => handleOnChangeTitle(e, item.id)}
                             ref={(ref) => inputRefs[item.id] = ref}
                         />
-                        <img src="/assets/modify.svg" alt="modify"/>
+                        <img src="/assets/modify.svg"
+                             alt="modify"
+                             onClick={() => handleModifyTodo(item.id)}
+                        />
                         <img src="/assets/delete.svg"
                              alt="delete"
                              onClick={() => handleDeleteTodo(item.id)}
