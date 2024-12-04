@@ -47,14 +47,20 @@ export default function App() {
             inputRefs[id].focus();
         }
     }
-    function handleDeleteTodo(id) {
+    const handleDeleteTodo = (id) => {
         setData((prevState) => ({
             ...prevState,
             todoData: prevState.todoData.filter((todo) => todo.id !== id),
         }));
     }
 
-    function handleAddNewTodo() {
+    const handleAddNewTodo = () => {
+        const emptyTodo = data.todoData.find((todo) => todo.title.trim().length === 0);
+        if (emptyTodo) {
+            alert("입력하지 않은 할일이 있습니다.!");
+            return;
+        }
+
         setData((prevState) => {
             const newTodoData = {
                 id: prevState.count + 1,
@@ -68,6 +74,12 @@ export default function App() {
         });
     }
     const handleOnChangeChecked = (e, id) => {
+        const emptyTodo = data.todoData.find((data) => data.id === id);
+        if (emptyTodo.title.trim().length === 0) {
+            alert("항목을 입력하지 않으면 완료 할 수 없습니다.!");
+            return;
+        }
+
         setData((prevState) => ({
             ...prevState,
             todoData: prevState.todoData.map((todo) =>
