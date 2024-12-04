@@ -37,6 +37,11 @@ export default function App() {
             )
         }));
     }
+    const handleSubmit = (e, id) => {
+        if (e.key === "Enter") {
+            inputRefs[id].blur();
+        }
+    }
     const handleModifyTodo = (id) => {
         if (inputRefs[id]) {
             inputRefs[id].focus();
@@ -80,6 +85,7 @@ export default function App() {
                             type="text"
                             value={item.title}
                             onChange={(e) => handleOnChangeTitle(e, item.id)}
+                            onKeyUp={(e) => handleSubmit(e, item.id)}
                             ref={(ref) => inputRefs[item.id] = ref}
                         />
                         <img src="/assets/modify.svg"
