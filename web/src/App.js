@@ -1,5 +1,5 @@
 import './css/general.css';
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 export default function App() {
     const [data, setData] = useState(
@@ -11,7 +11,15 @@ export default function App() {
             ],
         }
     );
-    // console.log(data);
+    const inputRefs = useRef();
+
+    useEffect(() => {
+        console.log("updated data:", data);
+        const newId = data.count;
+        if (inputRefs[newId]) {
+            inputRefs[newId].focus();
+        }
+    }, [data.count])
 
     const handleOnChangeTitle = (e, id) => {
         setData((prevState) => ({
@@ -64,6 +72,7 @@ export default function App() {
                             type="text"
                             value={item.title}
                             onChange={(e) => handleOnChangeTitle(e, item.id)}
+                            ref={(ref) => inputRefs[item.id] = ref}
                         />
                         <img src="/assets/modify.svg" alt="modify"/>
                         <img src="/assets/delete.svg"
