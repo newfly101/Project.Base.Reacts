@@ -11,7 +11,7 @@ export default function App() {
             ],
         }
     );
-    console.log(data);
+    // console.log(data);
 
     function handleOnChangeTitle(e, id) {
         setData((prevState) => ({
@@ -30,11 +30,29 @@ export default function App() {
         }));
     }
 
+    function handleAddNewTodo() {
+        setData((prevState) => {
+            const newTodoData = {
+                id: prevState.count + 1,
+                title: "",
+                completed: false
+            };
+            return {
+                count: prevState.count + 1,
+                todoData: [...prevState.todoData, newTodoData],
+            }
+        });
+        // class형 component에서는 callback()이 바로 호출 되는 반면
+        // function형에서는 callback()처리를 하고 싶으면 useEffect() 사용해야 함
+    }
+
     return (
         <div className="App">
             <div className="todo-header">
                 <h1>Todos 앱</h1>
-                <span className="new-todo">새로운 TODO 추가하기</span>
+                <span className="new-todo"
+                      onClick={() => handleAddNewTodo()}>
+                    새로운 TODO 추가하기</span>
             </div>
             {data.todoData.map((item) => {
                 // console.log(item);
