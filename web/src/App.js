@@ -105,14 +105,20 @@ export default function App() {
                                checked={item.completed}
                                onChange={(e) => handleOnChangeChecked(e, item.id)}
                         />
-                        <input
-                            className={item.completed ? "todo todo-complete" : "todo"}
-                            type="text"
-                            value={item.title}
-                            onChange={(e) => handleOnChangeTitle(e, item.id)}
-                            onKeyUp={(e) => handleSubmit(e, item.id)}
-                            ref={(ref) => inputRefs[item.id] = ref}
-                        />
+                        {item.completed ?
+                            <label className={item.completed ? "todo todo-complete" : "todo"}>
+                                {item.title}
+                            </label>
+                            :
+                            <input
+                                className={item.completed ? "todo todo-complete" : "todo"}
+                                type="text"
+                                value={item.title}
+                                onChange={(e) => handleOnChangeTitle(e, item.id)}
+                                onKeyUp={(e) => handleSubmit(e, item.id)}
+                                ref={(ref) => inputRefs[item.id] = ref}
+                            />
+                        }
                         <img src="/assets/modify.svg"
                              alt="modify"
                              onClick={() => handleModifyTodo(item.id)}
