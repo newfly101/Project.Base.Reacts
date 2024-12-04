@@ -67,6 +67,16 @@ export default function App() {
             }
         });
     }
+    const handleOnChangeChecked = (e, id) => {
+        setData((prevState) => ({
+            ...prevState,
+            todoData: prevState.todoData.map((todo) =>
+                todo.id === id
+                    ? {...todo, completed: e.target.checked}
+                    : todo
+            )
+        }));
+    }
 
     return (
         <div className="App">
@@ -79,7 +89,10 @@ export default function App() {
             {data.todoData.map((item) => {
                 return (
                     <div className="add-todos" key={item.id}>
-                        <input type="checkbox"/>
+                        <input type="checkbox"
+                               checked={item.completed}
+                               onChange={(e) => handleOnChangeChecked(e, item.id)}
+                        />
                         <input
                             className="todo"
                             type="text"
