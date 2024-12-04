@@ -1,6 +1,7 @@
 import './css/general.css';
 import React, {useEffect, useRef, useState} from "react";
 import Lists from "./views/Lists.js";
+import {DragDropContext, Draggable, Droppable} from "@hello-pangea/dnd";
 
 export default function App() {
     const [data, setData] = useState(
@@ -90,26 +91,60 @@ export default function App() {
             )
         }));
     }
+    const handleDragEnd = (result) => {
+        if (!result.destination) return;
+
+        const reOrderedTodos = Array.from(data.todoData);
+        const [removed] = reOrderedTodos.splice(result.source.index, 1);
+        reOrderedTodos.splice(result.destination.index, 0, removed);
+
+        setData((prevState) => ({
+            ...prevState,
+            todoData: reOrderedTodos,
+        }));
+    }
 
     return (
-        <div className="App">
+        <DragDropContext onDragEnd={handleDragEnd}>
             <div className="todo-header">
                 <h1>Todos 앱</h1>
                 <span className="new-todo"
                       onClick={() => handleAddNewTodo()}>
                     새로운 TODO 추가하기</span>
             </div>
-            {data.todoData.map((item) => (
-            <Lists item={item} key={item.id} setTodoData={setData}
-                   onChangeInput={handleOnChangeTitle}
-                   onChangeChecked={handleOnChangeChecked}
-                   handleModify={handleModifyTodo}
-                   handleDelete={handleDeleteTodo}
-                   onKeyupInput={handleSubmit}
-                   inputRefs={inputRefs}
-            />
-            ))}
-
-        </div>
+            <Droppable droppableId="todos">
+                {(provided) => (
+                    <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        className="todo-list"
+                    >
+                        {data.todoData.map((item, index) => (
+                            <Draggable key={item.id} draggableId={`${item.id}`} index={index}>
+                                {(provided) => (
+                                    <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                    >
+                                        <Lists
+                                            item={item}
+                                            setTodoData={setData}
+                                            onChangeInput={handleOnChangeTitle}
+                                            onChangeChecked={handleOnChangeChecked}
+                                            handleModify={handleModifyTodo}
+                                            handleDelete={handleDeleteTodo}
+                                            onKeyupInput={handleSubmit}
+                                            inputRefs={inputRefs}
+                                        />
+                                    </div>
+                                )}
+                            </Draggable>
+                        ))}
+                        {provided.placeholder}
+                    </div>
+                )}
+            </Droppable>
+        </DragDropContext>
     );
 }
