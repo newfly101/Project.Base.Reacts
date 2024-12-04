@@ -1,112 +1,52 @@
-<h1>프로젝트 생성 방법</h1>
+<h1>함수형 컴포넌트(Function Component)</h1>
 
-```bash
-npx create-react-app web
-```
+<h2>TODO APP 만들기</h2>
+[JS로 만든 Todo App](https://github.com/newfly101/todo-clone)
 
-<p>root경로에 .gitignore 추가</p>
 <pre>
-# 무시하지 않을 항목들
-!web/src/
-!web/public/
-!web/package.json
-!web/package-lock.json
-# intellij file
-/.idea
-.log
-#  macOS file
-.DS_Store
-# testing with `Jest`
-/coverage
-# production
-/web/build
-# misc
-/web/node_modules
-/web/.env
-/web/.env.*
-# dependencies
-/web/.pnp.*
-/web/.pnp.js
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+위의 링크에 있는 내용물을 Function형 Component를 활용한 React로 구현
 </pre>
-
-<p>Git의 인덱스에서 commit 예외하려는 것 제거</p>
-
-```bash
-git rm --cached -r .idea
-git commit -m "first commit : Refresh .gitignore rule"
-```
-
-<h2>1. web 폴더로 가서 React 시작하기</h2>
-
-```bash
-cd web
-npm run start
-```
-
-<h2>2. DeprecationWarning (사용 중단 경고)</h2>
+<hr>
+    <li>기본 기능 : 항목을  state로 관리하여, state의 배열로 저장함</li>
+    <li>기본 기능 : 항목 추가, 삭제, 변경을 원활하게 할 수 있음</li>
+    <li>기본 기능 : 항목이 완료되면 수정x, 삭제만 가능하게 변경</li>
+<hr>
 <pre>
-[DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
-[DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+    <li>예외처리1 : 항목을 추가할 때 빈 항목의 이름이 없으면 추가되지 않게 함</li>
+    <img src="web/public/assets/exception_2.png" alt=""/>
 </pre>
-<img src="web/public/README_1.png" alt="" />
-
-```jsx
-onBeforeSetupMiddleware(devServer) {
-  // Keep `evalSourceMapMiddleware`
-  // middlewares before `redirectServedPath` otherwise will not have any effect
-  // This lets us fetch source contents from webpack for the error overlay
-  devServer.app.use(evalSourceMapMiddleware(devServer));
-  if (fs.existsSync(paths.proxySetup)) {
-    // This registers user provided middleware for proxy reasons
-    require(paths.proxySetup)(devServer.app);
-  }
-},
-onAfterSetupMiddleware(devServer) {
-  // Redirect to `PUBLIC_URL` or `homepage` from `package.json` if url not match
-  devServer.app.use(redirectServedPath(paths.publicUrlOrPath));
-  // This service worker file is effectively a 'no-op' that will reset any
-  // previous service worker registered for the same host:port combination.
-  // We do this in development to avoid hitting the production cache if
-  // it used the same host and port.
-  // https://github.com/facebook/create-react-app/issues/2272#issuecomment-302832432
-  devServer.app.use(noopServiceWorkerMiddleware(paths.publicUrlOrPath));
-},
-```
-
-<p>위의 내용을 제거하고 아래와 같이 변경한다. (git에 올라가지 않기 때문에) 임의로 수정 진행</p>
-
-```jsx
-setupMiddlewares: (middlewares, devServer) => {
-  if (!devServer) {
-    throw new Error('webpack-dev-server is not defined')
-  }
-
-  if (fs.existsSync(paths.proxySetup)) {
-    require(paths.proxySetup)(devServer.app)
-  }
-
-  middlewares.push(
-      evalSourceMapMiddleware(devServer),
-      redirectServedPath(paths.publicUrlOrPath),
-      noopServiceWorkerMiddleware(paths.publicUrlOrPath)
-  )
-
-  return middlewares;
-},
-```
-
-<h2>3. babel-preset-react-app 관련 경고</h2>
 <pre>
-One of your dependencies, babel-preset-react-app, is importing the
-"@babel/plugin-proposal-private-property-in-object" package without
-declaring it in its dependencies.
+    <li>예외처리2 : 항목이 입력되지 않았을 때 완료되지 않게 함</li>
+    <img src="web/public/assets/exception_1.png" alt=""/>
 </pre>
-
-```bash
-npm install --save-dev @babel/plugin-proposal-private-property-in-object
-npm remove @babel/plugin-proposal-private-property-in-object
-```
+<pre>
+    <li>예외처리3 : 항목을 달성하면, 변경되지 않도록 &lt;label&gt;로 변경시킴 </li>
+    <img src="web/public/assets/exception_3.png" alt=""/>
+</pre>
+<pre>
+    <li>예외처리4 : 항목을 달성하면, 변경되는 버튼이 보이지 않게 됨 </li>
+    <img src="web/public/assets/exception_4.png" alt=""/>
+</pre>
+<hr>
+<h2>주요 학습 내용</h2>
+<pre>
+    <li>useState()로 View의 조정을 시행(추가, 삭제, 변경 전부 State 값)</li>
+    <img src="web/public/assets/study_ref_1.png" alt=""/>
+</pre>
+<pre>
+    <li><code>.map() .filter() .find()</code>를 활용한 값 저장 및 활용</li>
+    <img src="web/public/assets/study_ref_2.png" alt=""/>
+</pre>
+<pre>
+    <li>Spread Operator을 활용한 이전 object data를 포함한 데이터 set 유지</li>
+    <img src="web/public/assets/study_ref_3.png" alt=""/>
+    <img src="web/public/assets/study_ref_4.png" alt=""/>
+</pre>
+<pre>
+    <li>삼항 연산자 <code>?</code> 를 활용한 동적 조건 처리</li>
+    <img src="web/public/assets/study_ref_5.png" alt=""/>
+</pre>
+<pre>
+    <li>useEffect()를 활용한 data 변경 시 추적</li>
+    <img src="web/public/assets/study_ref_6.png" alt=""/>
+</pre>
