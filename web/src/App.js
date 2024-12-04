@@ -20,7 +20,7 @@ export default function App() {
             return;
         }
 
-        console.log("updated data:", data);
+        // console.log("updated data:", data);
         const newId = data.count;
         if (inputRefs[newId]) {
             inputRefs[newId].focus();
