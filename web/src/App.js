@@ -119,7 +119,8 @@ export default function App() {
                                 ref={(ref) => inputRefs[item.id] = ref}
                             />
                         }
-                        <img src="/assets/modify.svg"
+                        <img className={item.completed ? "modifyImg": ""}
+                             src="/assets/modify.svg"
                              alt="modify"
                              onClick={() => handleModifyTodo(item.id)}
                         />
