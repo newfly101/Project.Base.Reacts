@@ -13,7 +13,7 @@ export default function App() {
     );
     // console.log(data);
 
-    function handleOnChangeTitle(e, id) {
+    const handleOnChangeTitle = (e, id) => {
         setData((prevState) => ({
             ...prevState,
             todoData: prevState.todoData.map((todo) =>
