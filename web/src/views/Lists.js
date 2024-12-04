@@ -1,33 +1,33 @@
 import React from "react";
-export default function Lists({item, inputRefs, onChangeInput, onChangeChecked, handleModify, handleDelete, onKeyupInput}) {
+export default function Lists(props) {
     return (
-        <div className="add-todos" key={item.id}>
+        <div className="add-todos" key={props.item.id}>
             <input type="checkbox"
-                   checked={item.completed}
-                   onChange={(e) => onChangeChecked(e, item.id)}
+                   checked={props.item.completed}
+                   onChange={(e) => props.onChangeChecked(e, props.item.id)}
             />
-            {item.completed ?
-                <label className={item.completed ? "todo todo-complete" : "todo"}>
-                    {item.title}
+            {props.item.completed ?
+                <label className={props.item.completed ? "todo todo-complete" : "todo"}>
+                    {props.item.title}
                 </label>
                 :
                 <input
-                    className={item.completed ? "todo todo-complete" : "todo"}
+                    className={props.item.completed ? "todo todo-complete" : "todo"}
                     type="text"
-                    value={item.title}
-                    onChange={(e) => onChangeInput(e, item.id)}
-                    onKeyUp={(e) => onKeyupInput(e, item.id)}
-                    ref={(ref) => (inputRefs[item.id] = ref)}
+                    value={props.item.title}
+                    onChange={(e) => props.onChangeInput(e, props.item.id)}
+                    onKeyUp={(e) => props.onKeyupInput(e, props.item.id)}
+                    ref={(ref) => (props.inputRefs[props.item.id] = ref)}
                 />
             }
-            <img className={item.completed ? "modifyImg": ""}
+            <img className={props.item.completed ? "modifyImg": ""}
                  src="/assets/modify.svg"
                  alt="modify"
-                 onClick={() => handleModify(item.id)}
+                 onClick={() => props.handleModify(props.item.id)}
             />
             <img src="/assets/delete.svg"
                  alt="delete"
-                 onClick={() => handleDelete(item.id)}
+                 onClick={() => props.handleDelete(props.item.id)}
             />
         </div>
     );
