@@ -1,0 +1,61 @@
+body {
+    padding: 1.5em;
+    background-color: #e27680;
+    justify-content: center;
+    align-items: center;
+}
+.todo-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+.todo-header > span {
+    /*text-decoration-line: underline;*/
+    padding-bottom: 5px;
+    border-bottom: 2px solid white;
+    cursor: pointer;
+}
+h1 {
+    font-size: 1.5em;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    font-weight: bold;
+    display: flex;
+}
+.add-todos {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #b4dbe5;
+    border-radius: 10px;
+    border: 1px solid white;
+    margin: 10px 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.add-todos:hover {
+    border: 2px solid white;
+    padding: 0 9px;
+}
+.add-todos > img {
+    width: 20px;
+    margin: 0 5px 0 5px;
+    border-radius: 20%;
+    cursor: pointer;
+}
+.add-todos > .todo {
+    border: none;
+    width: 95%;
+    margin-left: 10px;
+    font-size: 15px;
+    background-color: #b4dbe5;
+}
+.add-todos > .todo:focus {
+    outline: none;
+    border-bottom: 2px solid white;
+}
