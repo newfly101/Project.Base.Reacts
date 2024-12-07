@@ -22,15 +22,8 @@ export default function App() {
         };
     });
     const inputRefs = useRef();
-    const isInitialRender = useRef(true);
 
     useEffect(() => {
-        if (isInitialRender.current) {
-            isInitialRender.current = false;
-            return;
-        }
-
-        // console.log("updated data:", data);
         const newId = data.count;
         if (inputRefs[newId]) {
             inputRefs[newId].focus();
