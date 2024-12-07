@@ -4,18 +4,23 @@ import Lists from "./views/Lists.js";
 import {DragDropContext, Draggable, Droppable} from "@hello-pangea/dnd";
 
 export default function App() {
-    const initialData = localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")): "";
-    const [data, setData] = useState(
-        {
-            count: initialData.length > 0 ? initialData.length : 2,
-            todoData: initialData.length > 0
-                ? initialData
+    const initialData = () => {
+        const todos = localStorage.getItem("todos");
+        return todos ? JSON.parse(todos) : [];
+    };
+
+    const [data, setData] = useState(() => {
+        const todos = initialData();
+        return {
+            count: todos.length > 0 ? todos.length : 2,
+            todoData: todos.length > 0
+                ? todos
                 : [
-                    {id: 1, title: 'Todo 1', completed: true},
-                    {id: 2, title: 'Todo 2', completed: false}
+                    { id: 1, title: "Todo 1", completed: true },
+                    { id: 2, title: "Todo 2", completed: false },
                 ],
-        }
-    );
+        };
+    });
     const inputRefs = useRef();
     const isInitialRender = useRef(true);
 
